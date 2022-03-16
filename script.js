@@ -1,4 +1,4 @@
-// "use strict";
+"use strict";
 
 // Selecting elements
 
@@ -12,37 +12,38 @@ const resetBtn = document.getElementById("reset");
 
 // Code
 
-let min = 00;
-let sec = 00;
-let milsec = 00;
+let min = 0;
+let sec = 0;
+let milsec = 0;
 
 let timeoutId;
+
+const formatTime = function (time) {
+    return time.toLocaleString("en-US", {
+        minimumIntegerDigits: 2,
+        useGrouping: false,
+    });
+};
+
+const showTime = function () {
+    showMinutes.innerText = formatTime(min);
+    showSeconds.innerText = formatTime(sec);
+    showMiliseconds.innerText = formatTime(milsec);
+};
 
 startBtn.addEventListener("click", function () {
     clearInterval(timeoutId);
     timeoutId = setInterval(() => {
-        showMinutes.innerText = min.toLocaleString("en-US", {
-            minimumIntegerDigits: 2,
-            useGrouping: false,
-        });
-        showSeconds.innerText = sec.toLocaleString("en-US", {
-            minimumIntegerDigits: 2,
-            useGrouping: false,
-        });
-        showMiliseconds.innerText = milsec.toLocaleString("en-US", {
-            minimumIntegerDigits: 2,
-            useGrouping: false,
-        });
-
+        showTime();
         milsec++;
 
         if (milsec > 99) {
             sec++;
-            milsec = 00;
+            milsec = 0;
 
             if (sec > 59) {
                 min++;
-                sec = 00;
+                sec = 0;
             }
         }
     }, 10);
@@ -57,19 +58,8 @@ stopBtn.addEventListener("click", function () {
 resetBtn.addEventListener("click", function () {
     clearInterval(timeoutId);
     startBtn.textContent = "start";
-    min = 00;
-    sec = 00;
-    milsec = 00;
-    showMinutes.textContent = min.toLocaleString("en-US", {
-        minimumIntegerDigits: 2,
-        useGrouping: false,
-    });
-    showSeconds.textContent = sec.toLocaleString("en-US", {
-        minimumIntegerDigits: 2,
-        useGrouping: false,
-    });
-    showMiliseconds.textContent = milsec.toLocaleString("en-US", {
-        minimumIntegerDigits: 2,
-        useGrouping: false,
-    });
+    min = 0;
+    sec = 0;
+    milsec = 0;
+    showTime();
 });
