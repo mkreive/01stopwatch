@@ -37,6 +37,8 @@ h2 {
 
 #timer {
     font-size: 800%;
+    display: flex;
+    flex-direction: row;
 }
 
 button {

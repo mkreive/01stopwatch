@@ -16,11 +16,11 @@ let min = 00;
 let sec = 00;
 let milsec = 00;
 
-let timeCounter;
+let timeoutId;
 
 startBtn.addEventListener("click", function () {
-    clearInterval(timeCounter);
-    timeCounter = setInterval(() => {
+    clearInterval(timeoutId);
+    timeoutId = setInterval(() => {
         showMinutes.innerText = min.toLocaleString("en-US", {
             minimumIntegerDigits: 2,
             useGrouping: false,
@@ -49,13 +49,14 @@ startBtn.addEventListener("click", function () {
 });
 
 stopBtn.addEventListener("click", function () {
-    clearInterval(timeCounter);
-    timeCounter = null;
+    clearInterval(timeoutId);
+    timeoutId = null;
     startBtn.textContent = "resume";
 });
 
 resetBtn.addEventListener("click", function () {
-    clearInterval(timeCounter);
+    clearInterval(timeoutId);
+    startBtn.textContent = "start";
     min = 00;
     sec = 00;
     milsec = 00;
