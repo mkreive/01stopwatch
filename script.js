@@ -1,5 +1,7 @@
 // "use strict";
 
+// Selecting elements
+
 const showMinutes = document.getElementById("minutes");
 const showSeconds = document.getElementById("seconds");
 const showMiliseconds = document.getElementById("milisec");
@@ -8,6 +10,8 @@ const startBtn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
 const resetBtn = document.getElementById("reset");
 
+// Code
+
 let min = 00;
 let sec = 00;
 let milsec = 00;
@@ -15,21 +19,33 @@ let milsec = 00;
 let timeCounter;
 
 startBtn.addEventListener("click", function () {
+    clearInterval(timeCounter);
     timeCounter = setInterval(() => {
-        showMinutes.textContent = min.toLocaleString("en-US", {
+        showMinutes.innerText = min.toLocaleString("en-US", {
             minimumIntegerDigits: 2,
             useGrouping: false,
         });
-        showSeconds.textContent = sec.toLocaleString("en-US", {
+        showSeconds.innerText = sec.toLocaleString("en-US", {
             minimumIntegerDigits: 2,
             useGrouping: false,
         });
-        showMiliseconds.textContent = milsec.toLocaleString("en-US", {
+        showMiliseconds.innerText = milsec.toLocaleString("en-US", {
             minimumIntegerDigits: 2,
             useGrouping: false,
         });
-        sec++;
-    }, 1000);
+
+        milsec++;
+
+        if (milsec > 99) {
+            sec++;
+            milsec = 00;
+
+            if (sec > 59) {
+                min++;
+                sec = 00;
+            }
+        }
+    }, 10);
 });
 
 stopBtn.addEventListener("click", function () {
@@ -39,6 +55,7 @@ stopBtn.addEventListener("click", function () {
 });
 
 resetBtn.addEventListener("click", function () {
+    clearInterval(timeCounter);
     min = 00;
     sec = 00;
     milsec = 00;
@@ -54,7 +71,4 @@ resetBtn.addEventListener("click", function () {
         minimumIntegerDigits: 2,
         useGrouping: false,
     });
-    console.log(sec);
 });
-
-const startTimer = function () {};
